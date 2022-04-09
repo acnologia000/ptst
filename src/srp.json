@@ -1,0 +1,40 @@
+[{
+	"update_id": 939270296,
+	"message": {
+		"message_id": 1068712,
+		"from": {
+			"id": 843800506,
+			"is_bot": false,
+			"first_name": "Lelouch",
+			"last_name": "vi / vim Britannia",
+			"username": "dilawar_uchiha",
+			"language_code": "en"
+		},
+		"chat": {
+			"id": -1001247843069,
+			"title": "KL Support Chat",
+			"username": "shitposters",
+			"type": "supergroup"
+		},
+		"date": 1648967784,
+		"reply_to_message": {
+			"message_id": 1068707,
+			"from": {
+				"id": 993214420,
+				"is_bot": false,
+				"first_name": "Yardanico",
+				"last_name": "👑",
+				"username": "yardanico"
+			},
+			"chat": {
+				"id": -1001247843069,
+				"title": "KL Support Chat",
+				"username": "shitposters",
+				"type": "supergroup"
+			},
+			"date": 1648967654,
+			"text": "finally"
+		},
+		"text": "you would totally do that if it meant playing full dive hentai game"
+	}
+}]
