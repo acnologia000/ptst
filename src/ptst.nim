@@ -3,34 +3,13 @@ import json
 
 
 let canvasConfig = parseJson(readFile("canvas.json"))
-#[
-    r = red
-    g = green
-    b = blue 
-    a = alpha
-    h = height
-    w = width
-]#
-
-let boxData = parseJson(readFile("box.json"))
-#[
-    r = red
-    g = green
-    b = blue 
-    a = alpha
-    h = height
-    w = width
-]#
+let messageBoxConfig = parseJson(readFile("box.json"))
 
 var 
     pfpCFG = parseJson(readFile("pfp.json"))
-    fpfp = newImage(32,32)
-    pfpMask = newMask(pfpCFG["px"].getInt(),pfpCFG["px"].getInt()) 
+    fpfp = newImage(128,128)
 
-let image = newImage(
-    canvasConfig["w"].getInt(),
-    canvasConfig["h"].getInt()
-)
+let image = newImage(canvasConfig["w"].getInt(), canvasConfig["h"].getInt())
 
 image.fill(
     rgba(
@@ -41,18 +20,37 @@ image.fill(
     )
 )
 
-let ctx = newContext(image)
-ctx.fillStyle = rgba(255, 0, 0, 255)
+let mainCTX = newContext(image)
+mainCTX.fillStyle = rgba(255, 0, 0, 255)
+
+let 
+    pfpCTX = newContext(fpfp)
+    pfpPaint = newPaint(ImagePaint)
+
+pfpPaint.image = readImage("pfp.jpg")
+pfpCTX.fillStyle = pfpPaint
+pfpCTX.fillCircle(
+    circle(
+        vec2(
+            float32(pfpCFG["px"].getFloat()),
+            float32(pfpCFG["px"].getFloat())
+        ),
+        float32(pfpCFG["r"].getFloat())
+    )
+)
+
 
 let
-    imageMatScale = float32(pfpCFG["scale"].getFloat())
-    pos = vec2(float32(boxData["px"].getFloat()), float32(boxData["py"].getFloat()))
-    wh = vec2(float32(boxData["w"].getFloat()), float32(boxData["h"].getFloat()))
+    pos = vec2(float32(messageBoxConfig["px"].getFloat()), float32(messageBoxConfig["py"].getFloat()))
+    wh = vec2(float32(messageBoxConfig["w"].getFloat()), float32(messageBoxConfig["h"].getFloat()))
     
 
-ctx.fillRoundedRect(rect(pos, wh),22)
-
-#
-
-image.draw(fpfp)
+mainCTX.fillRoundedRect(rect(pos, wh),22)
+mainCTX.drawImage(
+    fpfp,
+    float32(pfpCFG["dx"].getFloat()), # postion on x axis
+    float32(pfpCFG["dy"].getFloat()), # postion on y axis
+    float32(pfpCFG["dw"].getFloat()), # width
+    float32(pfpCFG["dh"].getFloat())  # height
+)
 image.writeFile("square.png")
